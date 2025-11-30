@@ -1,0 +1,75 @@
+﻿@model TiemTraSua.Models.TbTinTuc
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Sửa";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="container" style="margin-bottom:20px;">
+    <div class="row">
+        <div class="col-lg-8 col-md-12 col-sm-12">
+            <div class="page-header">
+                <h3 class="page-title">Sửa tin tức: <span style="color:#666;">@ViewBag.name</span></h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="MaTinTuc" />
+            <div class="form-group">
+                <label class="control-label">Tiêu đề</label>
+                <input asp-for="TieuDe" class="form-control" />
+                <span asp-validation-for="TieuDe" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Ngày đăng</label>
+                <input asp-for="NgayDang" type="date" class="form-control" />
+                <span asp-validation-for="NgayDang" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Nội dung</label>
+                <textarea asp-for="NoiDung" class="form-control"></textarea>
+                <span asp-validation-for="NoiDung" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Hình ảnh</label>
+                <input type="file" name="imageFile" class="form-control" id="HinhAnh" onchange="previewImage()" />
+                <span asp-validation-for="HinhAnh" class="text-danger"></span>
+                <img id="imgPreview" style="width:100%;" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Lưu" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Quay về</a>
+</div>
+
+<script type="text/javascript">
+    function previewImage() {
+        var fileInput = document.getElementById("HinhAnh");
+        var imgPreview = document.getElementById("imgPreview");
+
+        if (fileInput.files && fileInput.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                imgPreview.src = e.target.result;
+                imgPreview.style.display = "block";
+            };
+
+            reader.readAsDataURL(fileInput.files[0]);
+        }
+    }
+</script>
+
+

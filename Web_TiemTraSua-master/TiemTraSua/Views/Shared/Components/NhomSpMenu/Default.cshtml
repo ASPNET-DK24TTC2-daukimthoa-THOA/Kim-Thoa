@@ -1,0 +1,20 @@
+﻿@model IEnumerable<TbNhomSanPham>
+
+<div class="categories__accordion">
+    <div class="accordion" id="accordionExample">
+        <div class="card">
+            <div class="card-heading"><a asp-controller="Products" asp-action="Index">Tất cả</a></div>
+        </div>
+
+        @foreach (var item in Model)
+        {
+            var getUrl = "https://localhost:7147/api/productsapi/" + item.MaNhomSp;
+            <div class="card">
+                <div class="card-heading">
+                    <a asp-controller="products" asp-action="type" asp-route-target="@item.MaNhomSp" asp-route-targetName="@item.TenNhomSp">@item.TenNhomSp</a>
+                    @*<a style="cursor: pointer" onclick="showProductsByCategory('@getUrl')">@item.TenNhomSp</a>*@
+                </div>
+            </div>
+        }
+    </div>
+</div>
